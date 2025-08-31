@@ -8,6 +8,11 @@ import Main from './components/MainContent'
 import Footer from './components/Footer'
 import MainContent from './components/MainContent'
 import UserProfile from './components/UserProfile';
+const user = {
+  name: "Alice",
+  age: 25,
+  bio: "Loves hiking and photography"
+};
 // MainContent is already used as <Main /> below, since you imported it as both Main and MainContent.
 // If you want to use <MainContent /> instead, you can replace <Main /> with <MainContent /> in the JSX.
 function App() {
