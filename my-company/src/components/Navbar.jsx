@@ -16,6 +16,7 @@ function Navbar() {
   const navStyle = {
     padding: "1rem",
     background: "linear-gradient(90deg, #0f172a, #2563eb)",
+    backgroundColor: "#0f172a",
     marginBottom: "2rem",
     display: "flex",
     justifyContent: "center",
