@@ -1,22 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import WelcomeMessage from './components/WelcomeMessage'
-import Header from './components/Header'
-import Main from './components/MainContent'
-import Footer from './components/Footer'
-import MainContent from './components/MainContent'
-import UserProfile from './components/UserProfile';
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import WelcomeMessage from "./components/WelcomeMessage";
+import Header from "./components/Header";
+import Main from "./components/MainContent";
+import Footer from "./components/Footer";
+import MainContent from "./components/MainContent";
+import UserProfile from "./components/UserProfile";
+import Counter from "./components/Counter";
 
 const user = {
   name: "Alice",
   age: 25,
-  bio: "Loves hiking and photography"
+  bio: "Loves hiking and photography",
 };
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -43,13 +44,14 @@ function App() {
       {/* This is where you need to add the UserProfile component
         and pass the props from the `user` object.
       */}
-      <UserProfile name={user.name} age={user.age} bio={user.bio} /> 
+      <UserProfile name={user.name} age={user.age} bio={user.bio} />
       <WelcomeMessage />
       <Header />
       <Main />
+      <Counter />
       <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
