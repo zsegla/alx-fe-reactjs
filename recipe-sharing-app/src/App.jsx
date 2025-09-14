@@ -15,28 +15,49 @@ function App() {
           element={
             <div
               style={{
-                maxWidth: 600,
-                margin: "2rem auto",
-                padding: "2rem",
-                background: "#f9fafb",
-                borderRadius: 12,
-                boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+                minHeight: "100vh",
+                width: "100vw",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                background: "linear-gradient(135deg, #f9fafb 60%, #dbeafe 100%)",
+                padding: 0,
+                margin: 0,
               }}
             >
-              <h1
+              <div
                 style={{
-                  textAlign: "center",
-                  color: "#2563eb",
-                  marginBottom: "2rem",
+                  width: "100%",
+                  maxWidth: 800,
+                  margin: "2rem auto 0 auto",
+                  background: "#fff",
+                  borderRadius: 16,
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.10)",
+                  padding: "2rem 1.5rem 2.5rem 1.5rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
               >
-                Recipe Sharing App
-              </h1>
-              <SearchBar />
-              <AddRecipeForm />
-              <RecipeList />
-              <FavoritesList />
-              <RecommendationsList />
+                <h1
+                  style={{
+                    textAlign: "center",
+                    color: "#2563eb",
+                    marginBottom: "2rem",
+                    fontSize: "2.5rem",
+                    fontWeight: 700,
+                    letterSpacing: "-1px",
+                  }}
+                >
+                  Recipe Sharing App
+                </h1>
+                <SearchBar />
+                <AddRecipeForm />
+                <RecipeList />
+                <FavoritesList />
+                <RecommendationsList />
+              </div>
             </div>
           }
         />
