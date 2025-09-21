@@ -10,6 +10,7 @@ const axiosInstance = axios.create({
 });
 
 // Advanced search for users by username, location, and minRepos
+// Uses: https://api.github.com/search/users?q={query}
 export const fetchUserData = async ({
   username,
   location,
