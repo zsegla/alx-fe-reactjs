@@ -9,9 +9,27 @@ const axiosInstance = axios.create({
   headers: API_KEY ? { Authorization: `token ${API_KEY}` } : {},
 });
 
-export const fetchUserData = async (username) => {
+// Advanced search for users by username, location, and minRepos
+export const fetchUserData = async ({
+  username,
+  location,
+  minRepos,
+  page = 1,
+  perPage = 10,
+}) => {
+  let query = "";
+  if (username) query += `${username} in:login`;
+  if (location) query += ` location:${location}`;
+  if (minRepos) query += ` repos:>=${minRepos}`;
+  query = query.trim();
   try {
-    const response = await axiosInstance.get(`/users/${username}`);
+    const response = await axiosInstance.get(`/search/users`, {
+      params: {
+        q: query,
+        page,
+        per_page: perPage,
+      },
+    });
     return response.data;
   } catch (error) {
     throw error;
