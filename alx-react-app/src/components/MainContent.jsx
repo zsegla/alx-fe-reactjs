@@ -5,4 +5,4 @@ function MainContent(){
     </main>
   )
 }
-export default Main;
+export default MainContent;
