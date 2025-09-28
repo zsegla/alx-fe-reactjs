@@ -6,7 +6,7 @@ const UserProfile = () => {
       <img
         src="https://randomuser.me/api/portraits/men/75.jpg"
         alt="User Profile"
-        className="rounded-full w-24 h-24 md:w-36 md:h-36 object-cover mb-4"
+        className="rounded-full sm:w-24 sm:h-24 md:w-36 md:h-36 object-cover mb-4"
       />
       <h2 className="font-bold text-lg md:text-xl mb-2 text-gray-800">
         John Doe
