@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const initialState = {
   title: "",
   ingredients: "",
-  instructions: "",
+  steps: "",
 };
 
 const AddRecipeForm = ({ onAdd }) => {
@@ -17,7 +17,7 @@ const AddRecipeForm = ({ onAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.title || !form.ingredients || !form.instructions) {
+    if (!form.title || !form.ingredients || !form.steps) {
       setError("All fields are required.");
       return;
     }
@@ -56,10 +56,10 @@ const AddRecipeForm = ({ onAdd }) => {
         onChange={handleChange}
       />
       <textarea
-        name="instructions"
+        name="steps"
         placeholder="Preparation Steps"
         className="border rounded px-3 py-2 h-24 resize-y focus:outline-none focus:ring-2 focus:ring-blue-400"
-        value={form.instructions}
+        value={form.steps}
         onChange={handleChange}
       />
       <button
