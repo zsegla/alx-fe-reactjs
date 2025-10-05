@@ -49,15 +49,15 @@ const AddRecipeForm = ({ onAdd }) => {
 
   return (
     <form
-      className="max-w-lg mx-auto bg-white rounded-lg shadow p-6 mt-8 flex flex-col gap-4"
+      className="max-w-lg md:max-w-2xl mx-auto bg-white rounded-lg shadow p-4 md:p-8 mt-8 flex flex-col gap-4"
       onSubmit={handleSubmit}
     >
-      <h2 className="text-2xl font-bold mb-4">Add New Recipe</h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-4">Add New Recipe</h2>
       <input
         type="text"
         name="title"
         placeholder="Recipe Title"
-        className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="border rounded px-3 py-2 md:px-4 md:py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
         value={form.title}
         onChange={handleChange}
       />
@@ -65,7 +65,7 @@ const AddRecipeForm = ({ onAdd }) => {
       <textarea
         name="ingredients"
         placeholder="Ingredients (one per line)"
-        className="border rounded px-3 py-2 h-24 resize-y focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="border rounded px-3 py-2 md:px-4 md:py-3 h-24 md:h-32 resize-y focus:outline-none focus:ring-2 focus:ring-blue-400"
         value={form.ingredients}
         onChange={handleChange}
       />
@@ -75,14 +75,14 @@ const AddRecipeForm = ({ onAdd }) => {
       <textarea
         name="steps"
         placeholder="Preparation Steps"
-        className="border rounded px-3 py-2 h-24 resize-y focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="border rounded px-3 py-2 md:px-4 md:py-3 h-24 md:h-32 resize-y focus:outline-none focus:ring-2 focus:ring-blue-400"
         value={form.steps}
         onChange={handleChange}
       />
       {errors.steps && <div className="text-red-500 mb-2">{errors.steps}</div>}
       <button
         type="submit"
-        className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+        className="bg-blue-600 text-white py-2 md:py-3 rounded hover:bg-blue-700 transition"
       >
         Add Recipe
       </button>
