@@ -8,29 +8,43 @@ const initialState = {
 
 const AddRecipeForm = ({ onAdd }) => {
   const [form, setForm] = useState(initialState);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (!form.title) newErrors.title = "Title is required.";
+    if (!form.ingredients) newErrors.ingredients = "Ingredients are required.";
+    else {
+      const ingredientsArr = form.ingredients
+        .split("\n")
+        .filter((i) => i.trim());
+      if (ingredientsArr.length < 2) {
+        newErrors.ingredients = "Please enter at least two ingredients.";
+      }
+    }
+    if (!form.steps) newErrors.steps = "Preparation steps are required.";
+    return newErrors;
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setError("");
+    setErrors({});
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.title || !form.ingredients || !form.steps) {
-      setError("All fields are required.");
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
     const ingredientsArr = form.ingredients.split("\n").filter((i) => i.trim());
-    if (ingredientsArr.length < 2) {
-      setError("Please enter at least two ingredients.");
-      return;
-    }
     onAdd({
       ...form,
       ingredients: ingredientsArr,
     });
     setForm(initialState);
+    setErrors({});
   };
 
   return (
@@ -39,7 +53,6 @@ const AddRecipeForm = ({ onAdd }) => {
       onSubmit={handleSubmit}
     >
       <h2 className="text-2xl font-bold mb-4">Add New Recipe</h2>
-      {error && <div className="text-red-500 mb-2">{error}</div>}
       <input
         type="text"
         name="title"
@@ -48,6 +61,7 @@ const AddRecipeForm = ({ onAdd }) => {
         value={form.title}
         onChange={handleChange}
       />
+      {errors.title && <div className="text-red-500 mb-2">{errors.title}</div>}
       <textarea
         name="ingredients"
         placeholder="Ingredients (one per line)"
@@ -55,6 +69,9 @@ const AddRecipeForm = ({ onAdd }) => {
         value={form.ingredients}
         onChange={handleChange}
       />
+      {errors.ingredients && (
+        <div className="text-red-500 mb-2">{errors.ingredients}</div>
+      )}
       <textarea
         name="steps"
         placeholder="Preparation Steps"
@@ -62,6 +79,7 @@ const AddRecipeForm = ({ onAdd }) => {
         value={form.steps}
         onChange={handleChange}
       />
+      {errors.steps && <div className="text-red-500 mb-2">{errors.steps}</div>}
       <button
         type="submit"
         className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
