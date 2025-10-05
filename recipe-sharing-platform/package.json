@@ -8,12 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-router-dom": "^7.9.3",
     "react-scripts": "5.0.0",
-    "tailwindcss": "^2.2.19",
-    "postcss": "^8.4.5",
-    "autoprefixer": "^10.4.2"
+    "tailwindcss": "^2.2.19"
   },
   "devDependencies": {
     "typescript": "^4.4.4"
