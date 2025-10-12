@@ -8,6 +8,8 @@ import Profile from "./components/Profile";
 import ProfileDetails from "./components/ProfileDetails";
 import ProfileSettings from "./components/ProfileSettings";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Blog from "./components/Blog";
+import BlogPost from "./components/BlogPost";
 
 export default function App() {
   return (
@@ -17,6 +19,11 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
 
+        {/* Blog routes */}
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
+
+        {/* Protected profile route with nested child routes */}
         <Route
           path="/profile"
           element={
