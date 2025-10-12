@@ -6,6 +6,7 @@ export default function RegistrationForm() {
     email: "",
     password: "",
   });
+  const { username, email, password } = values;
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(null);
 
@@ -17,9 +18,9 @@ export default function RegistrationForm() {
 
   const validate = () => {
     const err = {};
-    if (!values.username.trim()) err.username = "Username is required";
-    if (!values.email.trim()) err.email = "Email is required";
-    if (!values.password) err.password = "Password is required";
+    if (!username.trim()) err.username = "Username is required";
+    if (!email.trim()) err.email = "Email is required";
+    if (!password) err.password = "Password is required";
     return err;
   };
 
@@ -53,7 +54,7 @@ export default function RegistrationForm() {
           <input
             id="username"
             name="username"
-            value={values.username}
+            value={username}
             onChange={handleChange}
           />
           {errors.username && (
@@ -67,7 +68,7 @@ export default function RegistrationForm() {
           <input
             id="email"
             name="email"
-            value={values.email}
+            value={email}
             onChange={handleChange}
           />
           {errors.email && <div style={{ color: "red" }}>{errors.email}</div>}
@@ -80,7 +81,7 @@ export default function RegistrationForm() {
             id="password"
             name="password"
             type="password"
-            value={values.password}
+            value={password}
             onChange={handleChange}
           />
           {errors.password && (
