@@ -1,80 +1,91 @@
-import React from 'react'
-import { useQuery } from '@tanstack/react-query'
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-// --- fetcher function (uses browser fetch API) ---
-async function fetchPosts() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts')
-  if (!res.ok) {
-    throw new Error('Network response was not ok')
-  }
-  return res.json()
-}
+const fetchPosts = async (page, limit = 10) => {
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`
+  );
+  if (!res.ok) throw new Error("Failed to fetch posts");
+  return res.json();
+};
 
 export default function PostsComponent() {
-  // queryKey is an array; good practice to include resource name and params if any
+  const [page, setPage] = useState(1);
+  const limit = 10;
+
   const {
-    data: posts,
+    data = [],
     isLoading,
-    isFetching,
     isError,
     error,
-    refetch,
-    status,
-  } = useQuery(['posts'], fetchPosts, {
-    // optional per-query config (overrides defaults from QueryClient)
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    refetchOnWindowFocus: false, // don't refetch automatically on window focus
-  })
+    isFetching,
+    isPreviousData,
+  } = useQuery(["posts", page], () => fetchPosts(page, limit), {
+    keepPreviousData: true,
+    cacheTime: 1000 * 60 * 5, // keep in cache 5 minutes
+    staleTime: 1000 * 30, // consider fresh for 30s
+  });
+
+  if (isLoading) return <div>Loading posts…</div>;
+  if (isError) return <div>Error: {error.message}</div>;
 
   return (
     <section>
-      <div style={{ marginBottom: 12, display: 'flex', gap: 8, alignItems: 'center' }}>
-        <button
-          onClick={() => refetch()}
-          style={{
-            padding: '8px 12px',
-            borderRadius: 8,
-            border: '1px solid #ddd',
-            cursor: 'pointer',
-            background: '#fff',
-          }}
-        >
-          Refetch posts
-        </button>
-
-        <small style={{ color: '#666' }}>
-          {isFetching ? 'Updating...' : `Status: ${status}`}
-        </small>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 12,
+        }}
+      >
+        <div>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => setPage((p) => p + 1)}
+            disabled={isPreviousData || (data && data.length < limit)}
+            style={{ marginLeft: 8 }}
+          >
+            Next
+          </button>
+        </div>
+        <div>
+          Page: {page}{" "}
+          {isFetching ? (
+            <small style={{ marginLeft: 8 }}>(fetching…)</small>
+          ) : null}
+        </div>
       </div>
 
-      {isLoading && <div>Loading posts...</div>}
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {data.map((post) => (
+          <li
+            key={post.id}
+            style={{
+              marginBottom: 12,
+              padding: 12,
+              borderRadius: 8,
+              background: "rgba(255,255,255,0.03)",
+            }}
+          >
+            <h3 style={{ margin: "0 0 6px" }}>{post.title}</h3>
+            <p style={{ margin: 0 }}>{post.body}</p>
+          </li>
+        ))}
+      </ul>
 
-      {isError && (
-        <div style={{ color: 'crimson' }}>
-          Error loading posts: {error?.message ?? 'Unknown error'}
-        </div>
-      )}
-
-      {posts && (
-        <ul style={{ padding: 0, listStyle: 'none', maxWidth: 900 }}>
-          {posts.slice(0, 20).map(post => (
-            <li
-              key={post.id}
-              style={{
-                border: '1px solid #eee',
-                padding: 12,
-                marginBottom: 8,
-                borderRadius: 8,
-                background: '#fafafa',
-              }}
-            >
-              <strong style={{ display: 'block', marginBottom: 6 }}>{post.title}</strong>
-              <p style={{ margin: 0, color: '#333' }}>{post.body}</p>
-              <div style={{ marginTop: 8, fontSize: 12, color: '#666' }}>ID: {post.id}</div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div style={{ marginTop: 12 }}>
+        <small>
+          Note: keepPreviousData=true keeps the previous page visible while the
+          next page is loading. cacheTime={1000 * 60 * 5} keeps results cached
+          for 5 minutes.
+        </small>
+      </div>
     </section>
-  )
+  );
 }
