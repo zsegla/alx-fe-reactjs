@@ -19,7 +19,8 @@ export default function RegistrationForm() {
   const validate = () => {
     const err = {};
     if (!username.trim()) err.username = "Username is required";
-    if (!email.trim()) err.email = "Email is required";
+    if (!email) err.email = "Email is required";
+    else if (!email.trim()) err.email = "Email is required";
     if (!password) err.password = "Password is required";
     return err;
   };
