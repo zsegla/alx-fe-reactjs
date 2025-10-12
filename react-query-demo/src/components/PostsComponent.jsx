@@ -24,6 +24,7 @@ export default function PostsComponent() {
     keepPreviousData: true,
     cacheTime: 1000 * 60 * 5, // keep in cache 5 minutes
     staleTime: 1000 * 30, // consider fresh for 30s
+    refetchOnWindowFocus: false, // don't refetch automatically when window regains focus
   });
 
   if (isLoading) return <div>Loading posts…</div>;
